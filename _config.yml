@@ -1,6 +1,6 @@
 # Site settings
-title: Falconius
-email: your-email@domain.com
+title: Falconius site
+email: info@falconius.com
 description: > # this means to ignore newlines until "baseurl:"
   Playing with data
 baseurl: "" # the subpath of your site, e.g. /blog/
