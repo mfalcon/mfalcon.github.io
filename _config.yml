@@ -3,7 +3,7 @@ title: Falconius
 email: your-email@domain.com
 description: > # this means to ignore newlines until "baseurl:"
   Playing with data
-baseurl: "mfalcon.github.io" # the subpath of your site, e.g. /blog/
+baseurl: "/mfalcon.github.io" # the subpath of your site, e.g. /blog/
 url: "http://falconius.com" # the base hostname & protocol for your site
 twitter_username: falconius
 github_username:  mfalcon
