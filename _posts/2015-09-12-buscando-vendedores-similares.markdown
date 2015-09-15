@@ -6,26 +6,31 @@ categories: machine_learning python MercadoLibre
 ---
 
 
-MercadoLibre es un marketplace para la compra/venta de todo tipo de productos. A través del sitio http://developers.mercadolibre.com/ cualquier desarrollador tiene la posibilidad de acceder a una gran cantidad de datos de cada transacción que tiene lugar en la plataforma.
+MercadoLibre es un marketplace para la compra/venta de todo tipo de productos. A través del sitio de [developers](http://developers.mercadolibre.com/) cualquier desarrollador tiene la posibilidad de acceder a una gran cantidad de datos de cada transacción que tiene lugar en la plataforma.
 
 Un caso que me resulta interesante analizar es, dado un vendedor, buscar(y encontrar) vendedores similares. Cuando vendemos productos en pocas categorías puede ser relativamente sencillo saber cuales son nuestros principales competidores, pero si tenemos una amplia gama de productos en muchas categorías diferentes, esta tarea puede resultar bastante complicada.
 
 Existen muchas variables para identificar vendedores similares a partir de los datos provistos por el API de MercadoLibre:
 
-Tipo de usuario
-Reputación
-Categorías en las que participan
-Fecha de inicio de actividades
-Cantidad de ventas diarias/semanales/mensuales
-Ingresos por ventas diarias/semanales/mensuales
+- Tipo de usuario
+- Reputación
+- Categorías en las que participan
+- Fecha de inicio de actividades
+- Cantidad de ventas diarias/semanales/mensuales
+- Ingresos por ventas diarias/semanales/mensuales
+
 Este artículo se va a concentrar en la combinación de dos variables: categorías en las que participan e ingresos por ventas en los últimos 30 días. Por lo tanto, para dejarlo en claro, se analizará una matriz en la que cada fila será un vendedor y cada columna una categoría, cada celda tendrá el total de ingresos por ventas de ese vendedor en esa categoría. MercadoLibre tiene una gran cantidad de categorías, lo que va a significar que la cantidad de columnas de la matriz va a ser muy grande y la matriz claramente va a resultar del tipo "sparse" o poco densa, ya que cada vendedor vende productos en muy pocas de esas categorías y por lo tanto la mayor parte de las celdas tendrá un valor nulo(NA).
 
 Para dejarlo más claro este sería un ejemplo:
 
-VENDEDOR(ID)	CATEGORIA A	CATEGORIA B
-4312221	551.0	0.0
-66655355	NA	0.0
-21133313	333.0	5900.0
+
+| VENDEDOR(ID)  | CATEGORIA A   | CATEGORIA B  |
+| ------------- |:-------------:| ------------:|
+| 4312221       | 551.0         |          0.0 |
+| 4332113       | NA            |          0.0 |
+| 6545454       | 333.0         |       5900.0 |
+
+
 Para encontrar las filas(vendedores) más similares a la seleccionada hay muchas formas de llegar a la solución. En este artículo voy a utilizar un algoritmo de aprendizaje (relacionado a Machine Learning) llamado Nearest Neighbors(NN), en este caso la variante no supervisada.
 
 El algoritmo NN se encarga de buscar los k-NN(los k vecinos más cercanos) del elemento que querramos analizar comparando cuan cerca está un elemento de otro. Quizá se hayan dado cuenta que este problema se puede resolver tranquilamente calculando una matriz de distancias utilizando una métrica sencilla como la euclideana y estarían completamente en lo cierto, pero hay muchos casos donde la cantidad de datos es demasiado grande y ese cálculo donde se compara una fila con las otras N-1 filas resulta muy "caro" de procesar. Si utilizamos este enfoque(fuerza bruta) y tenemos V vendedores y C categorías la complejidad crece $latex O[CV^2]$.
