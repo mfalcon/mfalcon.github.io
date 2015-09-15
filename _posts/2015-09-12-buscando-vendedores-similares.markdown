@@ -32,12 +32,11 @@ Para dejarlo más claro este sería un ejemplo:
 | 6545454       | 333.0         |     5900.0   |
 
 
-
 Para encontrar las filas(vendedores) más similares a la seleccionada hay muchas formas de llegar a la solución. En este artículo voy a utilizar un algoritmo de aprendizaje (relacionado a Machine Learning) llamado Nearest Neighbors(NN), en este caso la variante no supervisada.
 
-El algoritmo NN se encarga de buscar los k-NN(los k vecinos más cercanos) del elemento que querramos analizar comparando cuan cerca está un elemento de otro. Quizá se hayan dado cuenta que este problema se puede resolver tranquilamente calculando una matriz de distancias utilizando una métrica sencilla como la euclideana y estarían completamente en lo cierto, pero hay muchos casos donde la cantidad de datos es demasiado grande y ese cálculo donde se compara una fila con las otras N-1 filas resulta muy "caro" de procesar. Si utilizamos este enfoque(fuerza bruta) y tenemos V vendedores y C categorías la complejidad crece $$O[CV^2].
+El algoritmo NN se encarga de buscar los k-NN(los k vecinos más cercanos) del elemento que querramos analizar comparando cuan cerca está un elemento de otro. Quizá se hayan dado cuenta que este problema se puede resolver tranquilamente calculando una matriz de distancias utilizando una métrica sencilla como la euclideana y estarían completamente en lo cierto, pero hay muchos casos donde la cantidad de datos es demasiado grande y ese cálculo donde se compara una fila con las otras N-1 filas resulta muy "caro" de procesar. Si utilizamos este enfoque(fuerza bruta) y tenemos V vendedores y C categorías la complejidad crece $$O[CV^2]$$.
 
-En la implementación de la excelente librería de Machine Learning para Python llamada Scikit-Learn, además del enfoque de fuerza bruta se pueden utilizar otros dos: KDtree y Ball-tree. El razonamiento básicamente es ahorrar comparaciones entre filas: si la fila A tiene valores muy distantes a la fila B, y la fila B está muy cerca de la C, entonces se puede deducir que las filas A y C están muy distantes. El costo computacional se puede reducir a $$O[C*V*log(V)]$ o menos, lo que supone una mejora importante.
+En la implementación de la excelente librería de Machine Learning para Python llamada Scikit-Learn, además del enfoque de fuerza bruta se pueden utilizar otros dos: KDtree y Ball-tree. El razonamiento básicamente es ahorrar comparaciones entre filas: si la fila A tiene valores muy distantes a la fila B, y la fila B está muy cerca de la C, entonces se puede deducir que las filas A y C están muy distantes. El costo computacional se puede reducir a $$O[C*V*log(V)]$$ o menos, lo que supone una mejora importante.
 
 En cuanto a las métricas de distancia también hay varias opciones, pero en este caso optaré por la euclideana y en el código se va a ver que diferencia hay con respecto a calcular directamente la distancia utilizando esa métrica.
 
