@@ -1,0 +1,12 @@
+# Site settings
+title: Falconius site
+email: info@falconius.com
+description: > # this means to ignore newlines until "baseurl:"
+  Playing with data
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://falconius.com" # the base hostname & protocol for your site
+twitter_username: falconius
+github_username:  mfalcon
+
+# Build settings
+markdown: kramdown
